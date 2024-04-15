@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>productList</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .product-list {
+            list-style-type: none;
+            padding: 0;
+            max-width: 1200px;
+            height: fit-content;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: auto;
+            align-items: center;
+        }
+
+        .itemList {
+            width: 30%;
+            border:2px solid #1E0342;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            height: 700px;
+            margin: auto;
+            background-color: #F6F5F2;
+        }
+
+        .image {
+            width: 100%;
+            height: 300px;
+        }
+
+        .title {
+            font-size: 25px;
+            margin: 10px 0;
+            display: block;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            
+        }
+
+        .desp {
+            font-size: 16px;
+            margin-bottom: 10px;
+            background-color: #DD5746;
+            display: block;
+        }
+
+        .price {
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            padding: 10px;
+            background-color: #9AC8CD;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Our JsonProducts List</h1>
+    
+    <div class="container">
+        <ul class="product-list" id="plist">
+           
+        </ul>
+    </div>
+
+
+
+
+</body>
+
+</html>
+<script>
+
+
+    let productArry = []
+    let plist = document.getElementById('plist')
+    fetch("https://dummyjson.com/products").then(result => result.json()).then(data => {
+        console.log(data);
+        productArry.push(data);
+        let OurProducts = productArry[0].products
+        console.log(OurProducts);
+        console.log(OurProducts[0].title);
+
+        for (let index = 0; index < OurProducts.length; index++) {
+            plist.innerHTML += `
+                <li class="itemList">
+                <img src="${OurProducts[index].images[0]}" class="image">
+                <h2 class="title">${OurProducts[index].title}</h2>
+                <span class="desp">${OurProducts[index].description}</span>
+                <p class="discount">Discount Rate: ${OurProducts[index].discountPercentage}</p>
+                <p class="rate">Ratings: ${OurProducts[index].rating}</p>
+                <p class="stock">Available Stock: ${OurProducts[index].stock}</p>
+                <p class="brand">Products Brand: ${OurProducts[index].brand}</p>
+                <p class="category">Products Category: ${OurProducts[index].category}</p>
+                <span class="price">N:${OurProducts[index].price}.00</span>
+            </li>`
+        }
+
+
+
+    })
+
+
+</script>
